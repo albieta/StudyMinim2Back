@@ -3,7 +3,6 @@ package edu.upc.dsa.services;
 
 import edu.upc.dsa.GameManager;
 import edu.upc.dsa.GameManagerDBImpl;
-import edu.upc.dsa.GameManagerImpl;
 
 import edu.upc.dsa.exceptions.*;
 import edu.upc.dsa.models.*;
@@ -99,7 +98,7 @@ public class GameService {
     @GET
     @ApiOperation(value = "Gives a User by id", notes = "With an id")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successful", response = UserInformation.class),
+            @ApiResponse(code = 201, message = "Successful", response = User.class),
             @ApiResponse(code = 404, message = "User does not exist")
     })
     @Path("/user/{idUser}")
@@ -107,9 +106,7 @@ public class GameService {
     public Response getUser(@PathParam("idUser") String id) {
         try {
             User user = this.tm.getUser(id);
-            //UserInformation info = new UserInformation(user.getName(), user.getSurname(), user.getBirthday(), user.getEmail(), user.getPassword());
-            UserInformation info = new UserInformation(user);
-            return Response.status(201).entity(info).build();
+            return Response.status(201).entity(user).build();
         }
         catch (UserDoesNotExistException E){
             return Response.status(404).build();
@@ -214,6 +211,23 @@ public class GameService {
             return Response.status(401).build();
         }
     }
+    @PUT
+    @ApiOperation(value = "update a User", notes = "Updating a User")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful"),
+            @ApiResponse(code = 401, message = "User does not exist")
+    })
+    @Path("/user/update")
+    public Response updateUser(EditableUserInformation user) {
+        try{
+            this.tm.updateUser(user);
+            return Response.status(201).build();
+        }
+        catch (SQLException e) {
+            return Response.status(401).build();
+        }
+    }
+
     @DELETE
     @ApiOperation(value = "Deletes a gadget", notes = "Deletes a gadget")
     @ApiResponses(value = {

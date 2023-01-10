@@ -2,6 +2,7 @@ package edu.upc.dsa;
 
 import edu.upc.dsa.exceptions.*;
 import edu.upc.dsa.models.Credentials;
+import edu.upc.dsa.models.Gadget;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,7 +25,7 @@ public class GameManagerDBImplTest {
     @Test
     public void testPurchasedGadgets() {
         String userId;
-        List<String> gadgetIds;
+        List<Gadget> gadgetIds;
         try{
             userId = this.gameManager.addUser("Test123", "Test123", "123", "Test123", "Test123");
         } catch (SQLException | EmailAlreadyBeingUsedException e){return;}

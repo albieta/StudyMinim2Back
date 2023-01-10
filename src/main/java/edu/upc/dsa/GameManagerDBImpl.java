@@ -4,10 +4,7 @@ package edu.upc.dsa;
 import edu.upc.dsa.CRUD.FactorySession;
 import edu.upc.dsa.CRUD.Session;
 import edu.upc.dsa.exceptions.*;
-import edu.upc.dsa.models.Credentials;
-import edu.upc.dsa.models.Gadget;
-import edu.upc.dsa.models.Purchase;
-import edu.upc.dsa.models.User;
+import edu.upc.dsa.models.*;
 import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
@@ -97,6 +94,21 @@ public class GameManagerDBImpl implements GameManager{
 
         logger.info("Incorrect credentials, try again.");
         throw new IncorrectCredentialsException();
+    }
+
+    @Override
+    public void updateUser(EditableUserInformation editableUserInformation) throws SQLException {
+        User user = new User();
+        try {
+            user = (User) this.session.get(User.class, "id", (editableUserInformation.getIdUser()));
+        } catch(SQLException e) {
+            logger.warn("User does not exist EXCEPTION");
+        }
+        try {
+            this.session.update(updateUserFromEditableUserInfo(user, editableUserInformation));
+        } catch(SQLException e) {
+            logger.warn("Invalid Email ");
+        }
     }
 
     @Override
@@ -199,5 +211,14 @@ public class GameManagerDBImpl implements GameManager{
         }
         logger.info("No purchase was found for given user id");
         throw new NoPurchaseWasFoundForIdUser();
+    }
+
+    private User updateUserFromEditableUserInfo(User user, EditableUserInformation editableUserInformation) {
+        user.setName(editableUserInformation.getUsername());
+        user.setSurname(editableUserInformation.getSurname());
+        user.setBirthday(editableUserInformation.getBirthday());
+        user.setEmail(editableUserInformation.getEmail());
+        user.setPassword(editableUserInformation.getPassword());
+        return user;
     }
 }
