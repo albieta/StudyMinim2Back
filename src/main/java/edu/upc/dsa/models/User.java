@@ -19,20 +19,21 @@ public class User {
     Boolean currentlyPlaying;
     Integer coins;
     Integer experience;
+    String profilePicture;
 
 
     public User(){};
-    public User(String name, String surname,String date, String email, String password) {
+    public User(String name, String surname,String date, String email, String password, String profilePicture) {
         this.idUser = RandomUtils.getId();
         this.name = name;
         this.surname = surname;
         this.birthday = date;
         this.email = email;
         this.password = password;
+        this.profilePicture = profilePicture;
         this.currentlyPlaying = false;
         this.coins = 50;
         this.experience = 0;
-
     }
 
     public String getName() {
@@ -99,6 +100,14 @@ public class User {
 
     public void setCoins(Integer coins) {
         this.coins = coins;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public void purchaseGadget(Gadget gadget) throws NotEnoughMoneyException {

@@ -31,9 +31,9 @@ public class GameService {
         logger.info("Hey im here using the service");
 
         if (tm.numUsers()==0) {
-            this.tm.addUser("Alba", "Roma", "23112001", "albaroma@gmail.com", "123456");
-            this.tm.addUser("Maria", "Ubiergo", "02112001", "meri@gmail.com", "123456");
-            this.tm.addUser("Guillem", "Purti", "02112001", "guille@gmail.com", "123456");
+            this.tm.addUser("Alba", "Roma", "23112001", "albaroma@gmail.com", "123456", "https://media-exp1.licdn.com/dms/image/C4E03AQH9d9LHOD31vQ/profile-displayphoto-shrink_200_200/0/1657097482744?e=1675296000&v=beta&t=HHwkzAhMs6EGIG9E7wlo4HMyIE1tWQ8SuciFwq19ABs");
+            this.tm.addUser("Maria", "Ubiergo", "02112001", "meri@gmail.com", "123456", "https://media.licdn.com/dms/image/C4D03AQEzsbs50kI6vw/profile-displayphoto-shrink_200_200/0/1640174795289?e=2147483647&v=beta&t=pI-8r5G-cGUg368a4SyNa6KyxZsgWKA0sHhtt4P1McY");
+            this.tm.addUser("Guillem", "Purti", "02112001", "guille@gmail.com", "123456", "https://media-exp1.licdn.com/dms/image/C4D03AQEy8zZiS-NjKg/profile-displayphoto-shrink_200_200/0/1657627871673?e=1675900800&v=beta&t=pekjj0OLE2RvvbKPAfnEbZmz8O6xFe3AyRhtEQk7Bw8");
         }
         if(tm.numGadgets()==0) {
             this.tm.addGadget("1",3,"Ojo volador","https://img.freepik.com/vector-premium/objeto-volador-no-identificado-pixel-estilo_475147-433.jpg?w=2000");
@@ -125,7 +125,7 @@ public class GameService {
     public Response newUser(UserInformation newUser){
         if (Objects.equals(newUser.getName(), "") || Objects.equals(newUser.getBirthday(), "") || Objects.equals(newUser.getEmail(), "") || Objects.equals(newUser.getPassword(), "") || Objects.equals(newUser.getSurname(), ""))  return Response.status(500).entity(newUser).build();
         try{
-            this.tm.addUser(newUser.getName(), newUser.getSurname(), newUser.getBirthday(), newUser.getEmail(), newUser.getPassword());
+            this.tm.addUser(newUser.getName(), newUser.getSurname(), newUser.getBirthday(), newUser.getEmail(), newUser.getPassword(), newUser.getProfilePicture());
             return Response.status(201).entity(newUser).build();
         }
         catch (EmailAlreadyBeingUsedException | SQLException E){
@@ -290,7 +290,8 @@ public class GameService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response rankingUsers() {
         List<User> users= this.tm.rankingUsers();
-        return Response.status(201).entity(users).build();
+        GenericEntity<List<User>> entity = new GenericEntity<List<User>>(users) {};
+        return Response.status(201).entity(entity).build();
     }
 }
 

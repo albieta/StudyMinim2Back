@@ -11,7 +11,7 @@ public interface GameManager {
 
     public int numUsers();
     public int numGadgets();
-    public String addUser(String name, String surname, String date, String mail, String password) throws EmailAlreadyBeingUsedException, SQLException;
+    public String addUser(String name, String surname, String date, String mail, String password, String profilePicture) throws EmailAlreadyBeingUsedException, SQLException;
     public Map<String, User> getUsers();
     public User getUser(String idUser) throws UserDoesNotExistException;
     public String userLogin(Credentials credentials) throws IncorrectCredentialsException, SQLException;

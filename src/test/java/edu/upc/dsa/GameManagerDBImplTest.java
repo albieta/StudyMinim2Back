@@ -27,7 +27,7 @@ public class GameManagerDBImplTest {
         String userId;
         List<Gadget> gadgetIds;
         try{
-            userId = this.gameManager.addUser("Test123", "Test123", "123", "Test123", "Test123");
+            userId = this.gameManager.addUser("Test123", "Test123", "123", "Test123", "Test123", "https://srv.latostadora.com/designall.dll/chante--i:141385104351114138513;d:1043511;w:240;b:2B3039;m:1.jpg");
         } catch (SQLException | EmailAlreadyBeingUsedException e){return;}
         Assert.assertThrows(NoPurchaseWasFoundForIdUser.class, ()-> this.gameManager.purchasedGadgets(userId));
         try {

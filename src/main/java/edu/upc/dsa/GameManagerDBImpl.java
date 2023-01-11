@@ -37,9 +37,9 @@ public class GameManagerDBImpl implements GameManager{
     }
 
     @Override
-    public String addUser(String name, String surname, String date, String email, String password) throws EmailAlreadyBeingUsedException, SQLException {
+    public String addUser(String name, String surname, String date, String email, String password, String profilePicture) throws EmailAlreadyBeingUsedException, SQLException {
         logger.info("Adding a user...");
-        User user = new User(name, surname, date, email, password);
+        User user = new User(name, surname, date, email, password, profilePicture);
         try{
             user = (User) this.session.get(User.class, "email", email);
         } catch(SQLException e) {
@@ -229,7 +229,7 @@ public class GameManagerDBImpl implements GameManager{
             users.add(user);
         }
         users.sort((User u1, User u2)->Double.compare(u2.getExperience(),u1.getExperience()));
-        return users.subList(0,2);
+        return users.subList(0,3);
     }
 
     private User updateUserFromEditableUserInfo(User user, EditableUserInformation editableUserInformation) {
