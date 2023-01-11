@@ -213,6 +213,13 @@ public class GameManagerDBImpl implements GameManager{
         throw new NoPurchaseWasFoundForIdUser();
     }
 
+    @Override
+    public void deletePurchase(Purchase purchase) {
+        logger.info("Deleting purchase...");
+        this.session.delete(purchase);
+        logger.info("Purchase deleted");
+    }
+
     private User updateUserFromEditableUserInfo(User user, EditableUserInformation editableUserInformation) {
         user.setName(editableUserInformation.getUsername());
         user.setSurname(editableUserInformation.getSurname());

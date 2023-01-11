@@ -13,6 +13,6 @@ public interface Session {
     void delete(Object object);
     List<Object> findAll(Class theClass);
     List<Object> findAll(Class theClass, HashMap<String, String> params) throws SQLException;
-    List<Object> query(String query, Class theClass, HashMap params);
+    List<Object> query(String query, HashMap<String, String> params);
     void deleteRecords(Class theClass);
 }

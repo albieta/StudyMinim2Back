@@ -23,4 +23,5 @@ public interface GameManager {
     public Object getGadget(String id) throws GadgetDoesNotExistException;
     public Object deleteGadget(String id) throws GadgetDoesNotExistException;
     public List<Gadget> purchasedGadgets(String idUser) throws SQLException, NoPurchaseWasFoundForIdUser, GadgetDoesNotExistException;
+    public void deletePurchase(Purchase purchase);
 }

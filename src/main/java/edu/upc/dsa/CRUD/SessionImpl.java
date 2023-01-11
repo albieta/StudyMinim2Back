@@ -98,13 +98,18 @@ public class SessionImpl implements Session {
     }
 
     public void delete(Object object) {
-        try {
+        try{
             String updateQuery = QueryHelper.createQueryDELETE(object);
-            PreparedStatement statement = this.conn.prepareStatement(updateQuery);
-            statement.setObject(1, ObjectHelper.getter(object, ObjectHelper.getIdAttributeName(object.getClass())));
+            PreparedStatement statement = conn.prepareStatement(updateQuery);
+            int i = 1;
+
+            for(String field: ObjectHelper.getFields(object)) {
+                statement.setObject(i++, ObjectHelper.getter(object, field));
+            }
+
             statement.executeQuery();
-        } catch (NoSuchFieldException | InvocationTargetException | IllegalAccessException | SQLException var4) {
-            throw new RuntimeException(var4);
+        } catch (NoSuchFieldException | InvocationTargetException | IllegalAccessException | SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -156,7 +161,7 @@ public class SessionImpl implements Session {
     }
 
 
-    public List<Object> query(String query, Class theClass, HashMap params) {
+    public List<Object> query(String query, HashMap<String, String> params) {
         return null;
     }
 

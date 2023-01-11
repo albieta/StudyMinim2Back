@@ -245,6 +245,18 @@ public class GameService {
         }
     }
 
+    @PUT
+    @ApiOperation(value = "Deletes a purchase", notes = "Deletes a purchase")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful"),
+            @ApiResponse(code = 404, message = "Gadget not found")
+    })
+    @Path("/purchase/delete")
+    public Response deletePurchase(Purchase purchase) {
+        this.tm.deletePurchase(purchase);
+        return Response.status(201).build();
+    }
+
     @GET
     @ApiOperation(value = "Gives the purchases of a user")
     @ApiResponses(value = {
