@@ -220,6 +220,18 @@ public class GameManagerDBImpl implements GameManager{
         logger.info("Purchase deleted");
     }
 
+    @Override
+    public List<User> rankingUsers() {
+        List<User> users = new ArrayList<>();
+        List<Object> allUsers = this.session.findAll(User.class);
+        for(int i = 0; i < allUsers.size(); i++) {
+            User user = (User) allUsers.get(i);
+            users.add(user);
+        }
+        users.sort((User u1, User u2)->Double.compare(u2.getExperience(),u1.getExperience()));
+        return users.subList(0,2);
+    }
+
     private User updateUserFromEditableUserInfo(User user, EditableUserInformation editableUserInformation) {
         user.setName(editableUserInformation.getUsername());
         user.setSurname(editableUserInformation.getSurname());

@@ -280,5 +280,17 @@ public class GameService {
             throw new RuntimeException(e);
         }
     }
+
+    @GET
+    @ApiOperation(value = "Gives the user ranking")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = User.class, responseContainer="List")
+    })
+    @Path("/user/ranking")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response rankingUsers() {
+        List<User> users= this.tm.rankingUsers();
+        return Response.status(201).entity(users).build();
+    }
 }
 
