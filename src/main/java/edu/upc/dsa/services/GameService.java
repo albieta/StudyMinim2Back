@@ -293,5 +293,35 @@ public class GameService {
         GenericEntity<List<User>> entity = new GenericEntity<List<User>>(users) {};
         return Response.status(201).entity(entity).build();
     }
+
+    @POST
+    @ApiOperation(value = "save a new message", notes = "save new Message")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful")
+    })
+    @Path("/message")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response addMessage(Message message){
+        try {
+            this.tm.addMessage(message);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Response.status(201).build();
+    }
+
+    @GET
+    @ApiOperation(value = "Gives the user ranking")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Message.class, responseContainer="List")
+    })
+    @Path("/message/{num}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMessages(@PathParam("num") int num) {
+        List<Message> messages= this.tm.getMessages(num);
+        GenericEntity<List<Message>> entity = new GenericEntity<List<Message>>(messages) {};
+        return Response.status(201).entity(entity).build();
+    }
+
 }
 

@@ -25,4 +25,6 @@ public interface GameManager {
     public List<Gadget> purchasedGadgets(String idUser) throws SQLException, NoPurchaseWasFoundForIdUser, GadgetDoesNotExistException;
     public void deletePurchase(Purchase purchase);
     public List<User> rankingUsers();
+    public void addMessage(Message message) throws SQLException;
+    public List<Message> getMessages(Integer firstMessage);
 }

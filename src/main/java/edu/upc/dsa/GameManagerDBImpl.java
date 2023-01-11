@@ -232,6 +232,22 @@ public class GameManagerDBImpl implements GameManager{
         return users.subList(0,3);
     }
 
+    @Override
+    public void addMessage(Message message) throws SQLException {
+        this.session.save(message);
+    }
+
+    @Override
+    public List<Message> getMessages(Integer firstMessage) {
+        List<Message> messages = new ArrayList<>();
+        List<Object> allMessages = this.session.getMessagesSorted();
+        for(int i = firstMessage; i < allMessages.size(); i++) {
+            Message user = (Message) allMessages.get(i);
+            messages.add(user);
+        }
+        return messages;
+    }
+
     private User updateUserFromEditableUserInfo(User user, EditableUserInformation editableUserInformation) {
         user.setName(editableUserInformation.getUsername());
         user.setSurname(editableUserInformation.getSurname());
