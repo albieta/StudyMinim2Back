@@ -24,6 +24,7 @@ public class GameManagerDBImpl implements GameManager{
 
     public GameManagerDBImpl(){
         this.session = FactorySession.openSession("jdbc:mariadb://localhost:3306/rooms","rooms", "rooms");
+        //this.session = FactorySession.openSession("jdbc:mariadb://localhost:3306/minimA","minimA", "minimA");
     }
 
     @Override
